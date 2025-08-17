@@ -24,6 +24,7 @@ fn build_mapping() -> HashMap<usize, char> {
     map.insert(59, '}');
     map.insert(60, '[');
     map.insert(61, ']');
+    map.insert(62, ' ');
 
     map
 }
