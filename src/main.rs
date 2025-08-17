@@ -30,17 +30,17 @@ fn build_mapping() -> HashMap<usize, char> {
 
 fn main() {
     let path = env::args().nth(1).unwrap_or_else(|| {
-        eprintln!("okpkpok");
+        eprintln!("Usage: iusearchbtw <file.iusearchbtw>");
         std::process::exit(1);
     });
 
     let p = Path::new(&path);
     if p.extension().and_then(|s| s.to_str()) != Some("iusearchbtw") {
-        eprintln!("ppokpokpok");
+        eprintln!("Warning: file is not an iusearchbtw file");
     }
 
     let src = fs::read_to_string(&path).unwrap_or_else(|e| {
-        eprintln!("kmmkokaso");
+        eprintln!("cannot read file: {e}");
         std::process::exit(1);
     });
 
