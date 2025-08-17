@@ -1,3 +1,7 @@
+use regex::Regex;
+use std::env;
+use std::fs;
+use std::path::Path;
 use std::collections::HashMap;
 
 fn build_mapping() -> HashMap<usize, char> {
@@ -25,5 +29,37 @@ fn build_mapping() -> HashMap<usize, char> {
 }
 
 fn main() {
+    let path = env::args().nth(1).unwrap_or_else(|| {
+        eprintln!("okpkpok");
+        std::process::exit(1);
+    });
 
+    let p = Path::new(&path);
+    if p.extension().and_then(|s| s.to_str()) != Some("iusearchbtw") {
+        eprintln!("ppokpokpok");
+    }
+
+    let src = fs::read_to_string(&path).unwrap_or_else(|e| {
+        eprintln!("kmmkokaso");
+        std::process::exit(1);
+    });
+
+    let group_re = Regex::new(r"\(([^)]*)\)").unwrap();
+    let token_re = Regex::new(r"(?i)\bi\s+use\s+arch\s+btw\b").unwrap();
+
+    let mapping = build_mapping();
+
+    let mut out = String::new();
+
+    for cap in group_re.captures_iter(&src) {
+        let content = &cap[1];
+        let count = token_re.find_iter(content).count();
+
+        match mapping.get(&count) {
+            Some(&ch) => out.push(ch),
+            None => out.push('?'),
+        }
+    }
+
+    println!("{out}");
 }
