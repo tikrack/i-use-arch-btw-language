@@ -7,6 +7,10 @@ fn build_mapping() -> HashMap<usize, char> {
         map.insert(i + 1, c);
     }
 
+    for (i, c) in ('a'..='z').enumerate() {
+        map.insert(i + 27, c);
+    }
+
     map
 }
 
